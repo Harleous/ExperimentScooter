@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -65,24 +66,26 @@ public class Chtest {
         driver.get("https://qa-scooter.praktikum-services.ru/");
 
 
+
     }
 
 
     @Test
     public void mainPage_fAQ_checkText() {
+
+
+
+
+            WebElement heading = xpath(index).findElement(driver);
+
+            ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();",
+                    heading);
+            new WebDriverWait(driver, 10)
+                    .until(ExpectedConditions.elementToBeClickable(By.xpath(index).findElement(driver)));
+
+            heading.click();
+
         var panelId =  "accordion__panel-" + panelNumber;
-
-
-        WebElement heading = xpath(index).findElement(driver);
-
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();",
-                heading);
-        WebElement accordionItem = new WebDriverWait(driver, Duration.ofSeconds(3))
-                .until(ExpectedConditions.elementToBeClickable(By.xpath(index).findElement(driver)));
-
-        accordionItem.click();
-
-
         WebElement panel = id(panelId).findElement(driver);
         assertEquals(result, panel.isDisplayed());
         assertEquals(panelText, panel.getText());

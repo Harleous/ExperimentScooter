@@ -1,4 +1,4 @@
-package ScooFaqTest;
+package ScooFaqTest.Firefox;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
@@ -12,6 +12,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
@@ -65,24 +67,24 @@ public class FfTest {
 
 
         @Test
-        public void mainPage_fAQ_checkText(){
+        public void mainPage_fAQ_checkText() {
 
-//driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+
 
             WebElement heading = By.xpath(index).findElement(driver);
 
             ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();",
                     heading);
+             new WebDriverWait(driver, 10)
+                    .until(ExpectedConditions.elementToBeClickable(heading));
+            heading.click();
 
-            By.xpath(index).findElement(driver).click();
 
-            var panelId =  "accordion__panel-" + panelNumber;
+
+            var panelId = "accordion__panel-" + panelNumber;
             WebElement panel = By.id(panelId).findElement(driver);
             assertEquals(result, panel.isDisplayed());
             assertEquals(panelText, panel.getText());
-
-
-
 
 
         }
